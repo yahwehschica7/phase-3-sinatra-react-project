@@ -1,5 +1,5 @@
 puts "🌱 Seeding spices..."
 
-# Seed your database here
+"git test"
 
 puts "✅ Done seeding!"
