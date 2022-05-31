@@ -1,6 +1,5 @@
 puts "🌱 Seeding spices..."
 
-
 Category.create([
 {
     name: "Horror",
@@ -26,5 +25,8 @@ Book.create([
     category_id: 2
 }
 ])
+
+
+
 
 puts "✅ Done seeding!"
