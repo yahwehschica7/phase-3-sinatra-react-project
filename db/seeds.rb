@@ -27,7 +27,4 @@ Book.create([
 }
 ])
 
-p "Created #{Book.count} books"
-p "Created #{Category.count} categories"
-
 puts "✅ Done seeding!"
