@@ -3,14 +3,19 @@ class ApplicationController < Sinatra::Base
 
   get "/" do 
     {message: "Welcome to your InfiniteTBR pile"}.to_json
+    #put a Book.find that looks for params of true or false for the toberead pile. If true
+    #book.to_json(include: :toberead)
+    #if false, "You've already read this book"
   end
 
   get "/categories" do 
-    Category.all.to_json 
+    categories = Category.all 
+    categories.to_json(include: :books)
   end
 
   get "/books" do 
-    Book.all.to_json
+    books = Book.all
+    books.to_json
   end
 
   
