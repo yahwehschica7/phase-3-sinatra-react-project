@@ -18,6 +18,14 @@ class ApplicationController < Sinatra::Base
     books.to_json
   end
 
+  get"/books/:id" do 
+    book = Book.find_by(id: params[:id])
+      if book 
+        book.to_json(include: :category)
+      else
+        "This book is in a different category"
+      end
+    end
   
 
   
