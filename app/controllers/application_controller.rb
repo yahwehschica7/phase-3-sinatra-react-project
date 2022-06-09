@@ -7,26 +7,31 @@ class ApplicationController < Sinatra::Base
     #book.to_json(include: :toberead)
     #if false, "You've already read this book"
   end
+  #categories****
 
   get "/categories" do 
     categories = Category.all 
     categories.to_json(include: :books)
   end
 
+  post "/categories" do 
+    category = Category.create(name: params[:name])
+  end
+
+#validation with models is confirming that 
+#the inputted data is correct
+
+
+  #books****
+
   get "/books" do 
     books = Book.all
     books.to_json
   end
 
-  get"/books/:id" do 
-    book = Book.find_by(id: params[:id])
-      if book 
-        book.to_json(include: :category)
-      else
-        "This book is in a different category"
-      end
-    end
   
+  
+
 
   
 end
