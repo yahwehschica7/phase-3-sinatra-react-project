@@ -14,11 +14,35 @@ class ApplicationController < Sinatra::Base
     categories.to_json(include: :books)
   end
 
-  post "/categories" do 
-    category = Category.create(name: params[:name])
-    category.to_json
+  get "/edit" do
+
   end
 
+  get "/categories/:id" do 
+   category = Category.find_by_id(params["id"]) 
+   if category
+    category.to_json(include: :books)
+   else 
+    "404-Category Not Found"
+   end 
+  end
+
+  post "/categories" do 
+    category = Category.create(name: params[:name])
+    category.to_json(include: :books)
+  end
+
+  delete "/categories/:id" do 
+    category = Category.find_by_id(params["id"])
+    if category
+      category.destory
+      category.to_json
+    else 
+      {errors: ["Category not found"]}.to_json
+    end
+  end
+
+  
 #validation with models is confirming that 
 #the inputted data is correct
 
