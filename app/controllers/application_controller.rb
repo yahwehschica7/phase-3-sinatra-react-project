@@ -16,6 +16,7 @@ class ApplicationController < Sinatra::Base
 
   post "/categories" do 
     category = Category.create(name: params[:name])
+    category.to_json
   end
 
 #validation with models is confirming that 
