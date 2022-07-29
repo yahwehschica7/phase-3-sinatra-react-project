@@ -2,20 +2,12 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
 
   get "/" do 
-    {message: "Welcome to your InfiniteTBR pile"}.to_json
-    #put a Book.find that looks for params of true or false for the toberead pile. If true
-    #book.to_json(include: :toberead)
-    #if false, "You've already read this book"
+    {messages: "Welcome"}.to_json
   end
-  #categories****
 
   get "/categories" do 
     categories = Category.all 
     categories.to_json(include: :books)
-  end
-
-  get "/edit" do
-
   end
 
   get "/categories/:id" do 
@@ -27,6 +19,16 @@ class ApplicationController < Sinatra::Base
    end 
   end
 
+  post "/categories/:category_id/books" do
+    category = Category.find_by_id(params["category_id"])
+    books = category.books.build(params)
+    if book.save
+      book.to_json
+    else
+      {errors: ["Save Failed"]}.to_json
+    end
+  end
+
   post "/categories" do 
     category = Category.create(name: params[:name])
     category.to_json(include: :books)
@@ -35,7 +37,7 @@ class ApplicationController < Sinatra::Base
   delete "/categories/:id" do 
     category = Category.find_by_id(params["id"])
     if category
-      category.destory
+      category.destroy
       category.to_json
     else 
       {errors: ["Category not found"]}.to_json
@@ -50,9 +52,34 @@ class ApplicationController < Sinatra::Base
   #books****
 
   get "/books" do 
-    books = Book.all
-    books.to_json
+    book = Book.all 
+    book.to_json
   end
+
+  get "/books/:id" do 
+   book = Book.find_by_id(params["id"]) 
+   if book
+    book.to_json
+   else 
+    "404-Book Not Found"
+   end 
+  end
+
+  post "/books" do 
+    book = Book.create(params)
+    book.to_json
+  end
+
+  delete "/books/:id" do 
+    book = Book.find_by_id(params["id"])
+    if book
+      book.destroy
+      book.to_json
+    else 
+      {errors: ["Book not found"]}.to_json
+    end
+  end
+
 
   
   
