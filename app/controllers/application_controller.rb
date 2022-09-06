@@ -56,9 +56,8 @@ class ApplicationController < Sinatra::Base
     book.to_json
   end
 
-  post "categories/:category_id/books" do 
-    category = Category.find_by(id: params[:category_id])
-    book = category.books.create(params)
+  post "/books" do 
+    book = Book.create(params)
     book.to_json
   end
 
