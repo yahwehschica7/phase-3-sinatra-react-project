@@ -51,12 +51,7 @@ class ApplicationController < Sinatra::Base
 
   #books****
 
-  get "/books" do 
-    book = Book.all 
-    book.to_json
-  end
-
-  post "/books/new" do 
+  post "/books" do 
     book = Book.create(params)
     book.to_json
   end
